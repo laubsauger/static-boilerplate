@@ -1,0 +1,33 @@
+{
+  "name": "BrackStatic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "scripts": {
+    "lint": "node_modules/.bin/eslint src/js",
+
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:watch": "npm run test -- -w",
+
+    "scss": "node_modules/.bin/node-sass --output-style expanded --indent-type space --indent-width 4 -o dist/css src/scss",
+    "autoprefix": "node_modules/.bin/postcss --use autoprefixer -r dist/css/*",
+
+    "buildcss": "npm run scss && npm run autoprefix",
+    "buildcss:watch": "npm run scss && npm run autoprefix",
+
+    "buildjs": "",
+    "buildjs:watch": "npm run buildjs -- -w",
+
+    "build": "npm run test && npm run buildcss && npm run buildjs"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "node-sass": "^3.7.0",
+    "postcss-cli": "^2.5.2",
+    "uglify-js": "^2.6.2"
+  }
+}
