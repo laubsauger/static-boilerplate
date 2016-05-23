@@ -1,6 +1,6 @@
 {
   "name": "BrackStatic",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -8,26 +8,30 @@
   "license": "ISC",
   "private": true,
   "scripts": {
+    "postinstall": "mkdir -p dist && npm run clean",
+    "env": "env",
+    "test": "npm run lint && echo \"Error: no test specified\" && exit 1",
     "lint": "node_modules/.bin/eslint src/js",
-
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test:watch": "npm run test -- -w",
-
+    "imagemin": "node_modules/.bin/imagemin src/images dist/images -p",
     "scss": "node_modules/.bin/node-sass --output-style expanded --indent-type space --indent-width 4 -o dist/css src/scss",
-    "autoprefix": "node_modules/.bin/postcss --use autoprefixer -r dist/css/*",
-
-    "buildcss": "npm run scss && npm run autoprefix",
-    "buildcss:watch": "npm run scss && npm run autoprefix",
-
-    "buildjs": "",
-    "buildjs:watch": "npm run buildjs -- -w",
-
-    "build": "npm run test && npm run buildcss && npm run buildjs"
+    "autoprefix": "node_modules/.bin/postcss --use autoprefixer -b 'last 2 versions' -r dist/css/*",
+    "clean": "rm -rf dist/*",
+    "prebuild:js": "npm run lint",
+    "build:js": "npm run prebuild:js",
+    "build:js:watch": "onchange -v 'src/js/**/*' -- npm run build:js",
+    "build:css": "npm run scss && npm run autoprefix",
+    "build:css:watch": "onchange -v 'src/scss/**/*' -- npm run scss && npm run autoprefix",
+    "build:images": "npm run imagemin",
+    "build:images:watch": "onchange -v 'src/images/**/*' -- npm run imagemin",
+    "build": "npm run clean --silent && npm run build:js --silent && npm run build:css --silent && npm run build:images --silent",
+    "build:watch": "parallelshell 'npm run build:js:watch --silent' 'npm run build:css:watch --silent' 'npm run build:images:watch --silent'"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
+    "imagemin-cli": "^2.1.0",
     "node-sass": "^3.7.0",
-    "postcss-cli": "^2.5.2",
-    "uglify-js": "^2.6.2"
+    "onchange": "^2.4.0",
+    "parallelshell": "^2.0.0",
+    "postcss-cli": "^2.5.2"
   }
 }
