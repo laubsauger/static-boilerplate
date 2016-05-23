@@ -1,7 +1,7 @@
 var ChatMessage = require('./ChatMessage');
 
 function justDoIt() {
-    console.log('Chat: WootWoot!');
+    console.log('ChatMessage: ', ChatMessage);
 }
 
 module.exports = justDoIt;

@@ -9,14 +9,17 @@
   "private": true,
   "scripts": {
     "postinstall": "mkdir -p build && npm run clean",
-    "test": "npm run lint && echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/karma/bin/karma start karma.conf.js",
+    "test:once": "npm run test -s -- --single-run",
+    "test:watch": "npm run test -s",
     "lint": "node_modules/.bin/eslint src/js",
     "imagemin": "node_modules/.bin/imagemin src/images build/images -p",
     "scss": "node_modules/.bin/node-sass --output-style compressed -o build/css src/scss",
     "scss-dev": "node_modules/.bin/node-sass --output-style expanded --indent-type space --indent-width 4 -o build/css src/scss",
     "autoprefix": "node_modules/.bin/postcss --use autoprefixer -b 'last 2 versions' -r build/css/*",
     "clean": "rm -rf build/*",
-    "build:js": "npm run lint && mkdir -p build/js && node_modules/.bin/browserify -t [ babelify --presets [ es2015 ] ] src/js/index.js -o build/js/app.js",
+    "browserify": "node_modules/.bin/browserify src/js/index.js -o build/js/app.js",
+    "build:js": "npm run lint && mkdir -p build/js && npm run browserify",
     "build:js:watch": "onchange -v 'src/js/**/*' -- npm run build:js",
     "build:css": "if [ \"$NODE_ENV\" == \"production\" ]; then npm run scss; else npm run scss-dev; fi && npm run autoprefix",
     "build:css:watch": "onchange -v 'src/scss/**/*' -- npm run scss && npm run autoprefix",
@@ -27,12 +30,27 @@
   },
   "dependencies": {
     "autoprefixer": "^6.3.6",
-    "babel-preset-es2015": "^6.9.0",
     "browserify": "^13.0.1",
     "imagemin-cli": "^2.1.0",
     "node-sass": "^3.7.0",
     "onchange": "^2.4.0",
     "parallelshell": "^2.0.0",
-    "postcss-cli": "^2.5.2"
+    "postcss-cli": "^2.5.2",
+    "watchify": "^3.7.0"
+  },
+  "devDependencies": {
+    "browserify-istanbul": "^2.0.0",
+    "chai": "^3.5.0",
+    "karma": "^0.13.22",
+    "karma-browserify": "^5.0.5",
+    "karma-mocha": "^1.0.1",
+    "karma-mocha-clean-reporter": "0.0.1",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sinon-chai": "^1.2.0",
+    "mocha": "^2.5.1",
+    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.7",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0"
   }
 }
