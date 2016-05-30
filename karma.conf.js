@@ -1,3 +1,4 @@
+var cover = require('browserify-istanbul');
 // Karma configuration
 module.exports = function (config) {
     config.set({
@@ -28,7 +29,27 @@ module.exports = function (config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['mocha'],
+        reporters: ['mocha', 'coverage'],
+        coverageReporter: {
+            dir: 'coverage/',
+            reporters: [
+                {
+                    type: 'html',
+                    subdir: 'phantom',
+                    file: 'index.html',
+                    ignore: ['**/*spec.js'],
+                    defaultIgnore: true
+                },
+                {
+                    type: 'text'
+                }
+            ]
+        },
+
+        browserify: {
+            debug: true,
+            transform: ['browserify-istanbul']
+        },
 
         // web server port
         port: 9876,
@@ -57,7 +78,16 @@ module.exports = function (config) {
 
         // Browserify Config
         //browserify: {
-        //    //debug: true
-        //}
+        //    debug: true,
+        //    extensions: [".js"],
+        //    configure: function(bundle){
+        //        bundle.on('prebundle', function(){
+        //            bundle.transform(cover(coverOptions));
+        //        });
+        //    }
+        //},
+        junitReporter: {
+            outputFile: "spec/reports/test-results.xml"
+        }
     })
 };

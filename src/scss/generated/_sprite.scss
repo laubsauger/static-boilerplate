@@ -1,0 +1,87 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+*/
+$button-burger-x: 0px;
+$button-burger-y: 0px;
+$button-burger-offset-x: 0px;
+$button-burger-offset-y: 0px;
+$button-burger-width: 82px;
+$button-burger-height: 82px;
+$button-burger-total-width: 344px;
+$button-burger-total-height: 338px;
+$button-burger-image: '../../../build/images/sprite.png';
+$button-burger: 0px 0px 0px 0px 82px 82px 344px 338px '../../../build/images/sprite.png';
+$button-slide-left-x: 0px;
+$button-slide-left-y: 84px;
+$button-slide-left-offset-x: 0px;
+$button-slide-left-offset-y: -84px;
+$button-slide-left-width: 60px;
+$button-slide-left-height: 60px;
+$button-slide-left-total-width: 344px;
+$button-slide-left-total-height: 338px;
+$button-slide-left-image: '../../../build/images/sprite.png';
+$button-slide-left: 0px 84px 0px -84px 60px 60px 344px 338px '../../../build/images/sprite.png';
+$button-slide-right-x: 0px;
+$button-slide-right-y: 146px;
+$button-slide-right-offset-x: 0px;
+$button-slide-right-offset-y: -146px;
+$button-slide-right-width: 60px;
+$button-slide-right-height: 60px;
+$button-slide-right-total-width: 344px;
+$button-slide-right-total-height: 338px;
+$button-slide-right-image: '../../../build/images/sprite.png';
+$button-slide-right: 0px 146px 0px -146px 60px 60px 344px 338px '../../../build/images/sprite.png';
+$logo-brack-x: 0px;
+$logo-brack-y: 208px;
+$logo-brack-offset-x: 0px;
+$logo-brack-offset-y: -208px;
+$logo-brack-width: 344px;
+$logo-brack-height: 130px;
+$logo-brack-total-width: 344px;
+$logo-brack-total-height: 338px;
+$logo-brack-image: '../../../build/images/sprite.png';
+$logo-brack: 0px 208px 0px -208px 344px 130px 344px 338px '../../../build/images/sprite.png';
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
