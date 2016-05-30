@@ -1,11 +1,11 @@
+// Reset
+@import "partials/reset";
+
 // Sprites
 @import "generated/sprite";
 
-// Modules and Variables
+// Partials, Modules and Variables
 @import "partials/base";
-
-// Partials
-@import "partials/reset";
 
 // Third-party
 @import "vendor/test";

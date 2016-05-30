@@ -8,12 +8,12 @@ const sourceDir = 'src/images/';
 const outputDir = 'build/images/';
 
 glob('**/*', {'cwd': 'src/images/', 'ignore':['sprite/**']}, function (err, files) {
-    console.log('Discovering images...');
     if (err) {
        return console.error(err);
     }
 
-    console.log('Copying images to "%s"...', outputDir);
+    console.log('Copying images to "%s"', outputDir);
+
     files.forEach(function(path) {
         console.log(' - %s', path);
         fse.copySync(sourceDir + path, outputDir + path);
@@ -23,7 +23,7 @@ glob('**/*', {'cwd': 'src/images/', 'ignore':['sprite/**']}, function (err, file
 });
 
 function minify() {
-    console.log('Minifying images at "%s"...', outputDir);
+    console.log('Minifying images at "%s"', outputDir);
 
     imagemin(['build/images/**/*'], outputDir, {
         plugins: [
