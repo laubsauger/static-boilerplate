@@ -8,10 +8,5 @@ module.exports = {
     destCSS: './src/scss/generated/_sprite.scss',
     padding: 2,
     algorithm: 'top-down',
-    algorithmOpts: { sort: false },
-    cssOpts: {
-        cssClass: function (item) {
-            return util.format('.ic-%s:before', item.name);
-        }
-    }
+    algorithmOpts: { sort: false }
 };
