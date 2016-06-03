@@ -7,6 +7,10 @@
   "author": "",
   "license": "ISC",
   "private": true,
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/laubsauger/static-boilerplate.git"
+  },
   "scripts": {
     "postinstall": "mkdir -p build && npm run clean",
     "test": "./node_modules/karma/bin/karma start karma.conf.js",
