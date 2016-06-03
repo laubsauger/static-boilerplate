@@ -41,7 +41,7 @@
     "parallelshell": "^2.0.0",
     "postcss-cli": "^2.5.2",
     "spritesmith-cli": "^1.1.2",
-    "watchify": "^3.7.0"
+    "watchify": "^3.7.0",
     "browserify-istanbul": "^2.0.0",
     "chai": "^3.5.0",
     "istanbul": "^0.4.3",
